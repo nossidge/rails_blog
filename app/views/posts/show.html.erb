@@ -1,5 +1,3 @@
-<% markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, extensions = {}) %>
-
 <% if notice %>
   <p id="notice"><%= notice %></p>
 <% end %>
@@ -11,7 +9,7 @@
 
 <p>
   <strong>Body:</strong>
-  <%= markdown.render(@post.body).html_safe %>
+  <%= @markdown.render(@post.body).html_safe %>
 </p>
 
 <p>
