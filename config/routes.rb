@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'pages/home'
+
+  get 'pages/about'
+
+  get 'pages/subscribe'
+
   resources :subscribers
   resources :comments
   resources :posts
