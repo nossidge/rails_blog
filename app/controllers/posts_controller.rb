@@ -28,6 +28,10 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
+
+        # Sends email to all subscribers when new post is created.
+        NewPostMailer.send_to_subscribers(@post).deliver
+
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
