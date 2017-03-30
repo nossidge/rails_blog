@@ -1,3 +1,5 @@
+<% markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, extensions = {}) %>
+
 <% if notice %>
   <p id="notice"><%= notice %></p>
 <% end %>
@@ -18,7 +20,7 @@
     <% @posts.each do |post| %>
       <tr>
         <td><%= post.title %></td>
-        <td><%= post.body %></td>
+        <td><%= markdown.render(post.body).html_safe %></td>
         <td><%= post.user_id %></td>
         <td><%= link_to 'Show', post %></td>
         <td><%= link_to 'Edit', edit_post_path(post) %></td>
