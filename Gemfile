@@ -18,6 +18,11 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
+
+# Roll back to version 1.8.0 to fix Windows cscript issue
+# See https://stackoverflow.com/a/30059256/139299
+gem 'coffee-script-source', '1.8.0'
+
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -47,3 +52,16 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# https://launchschool.com/blog/managing-environment-configuration-variables-in-rails
+# Handle ENV variables.
+gem "figaro"
+
+# Fix issues with jquery page load events.
+# https://github.com/kossnocorp/jquery.turbolinks
+gem 'jquery-turbolinks'
+
+# For markdown display from the database ( i.e. MD=>HTML )
+# (Use JavaScript lib 'simplemde.js' for MD to the database)
+# https://github.com/vmg/redcarpet
+gem 'redcarpet'
