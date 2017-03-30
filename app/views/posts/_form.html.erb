@@ -1,3 +1,11 @@
+<script>
+// Add markdown editor to the post body field.
+$( document ).ready( function() {
+  var elem = $("#field_body")[0]
+  var simplemde = new SimpleMDE({ element: elem })
+})
+</script>
+
 <%= form_for(post) do |f| %>
   <% if post.errors.any? %>
     <div id="error_explanation">
@@ -18,7 +26,7 @@
 
   <div class="field">
     <%= f.label :body %>
-    <%= f.text_area :body %>
+    <%= f.text_area :body, :id => "field_body" %>
   </div>
 
   <div class="field">
