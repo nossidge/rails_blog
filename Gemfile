@@ -65,3 +65,6 @@ gem 'jquery-turbolinks'
 # (Use JavaScript lib 'simplemde.js' for MD to the database)
 # https://github.com/vmg/redcarpet
 gem 'redcarpet'
+
+# Paginate results.
+gem 'kaminari'
