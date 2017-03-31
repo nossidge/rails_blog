@@ -6,8 +6,9 @@ Rails.application.routes.draw do
   get 'pages/subscribe'
 
   resources :subscribers
-  resources :comments
-  resources :posts
+  resources :posts do
+    resources :comments
+  end
   resources :users
 
   root 'posts#index'
