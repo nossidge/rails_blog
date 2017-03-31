@@ -30,17 +30,21 @@
   <h2>Comments</h2>
 
   <% @post.comments.each do |comment| %>
-    <p>
-      <div>
-        <strong><%= comment.name %></strong>
-      </div>
-      <div>
-        <%= comment.created_at.strftime("%Y/%m/%d %H:%M") %>
-      </div>
-      <div>
-        <%= comment.body %>
-      </div>
-    </p>
+    <%# If the comment errored, there will be no 'created_at' %>
+    <%# This smells pretty bad, but it seems to work. %>
+    <% if comment.created_at %>
+      <p>
+        <div>
+          <strong><%= comment.name %></strong>
+        </div>
+        <div>
+          <%= comment.created_at.strftime("%Y/%m/%d %H:%M") %>
+        </div>
+        <div>
+          <%= comment.body %>
+        </div>
+      </p>
+    <% end %>
   <% end %>
 
   <% if @post.comments.empty? %>
@@ -54,13 +58,20 @@
 
 <hr>
 
+<%# If we are editing an errored comment, remember the previous value. %>
+<%# This will be used as the default value for the form fields. %>
+<% if @comment %>
+  <% name_value = @comment.name %>
+  <% body_value = @comment.body %>
+<% end %>
+
 <h2>Add comment</h2>
 
 <%= form_for([@post, @post.comments.build]) do |f| %>
 
   <% if @comment && @comment.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
       <ul>
       <% @comment.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -69,13 +80,14 @@
     </div>
   <% end %>
 
+  <%# Default values are okay to be nil. %>
   <div class="field">
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, value: name_value %>
   </div>
   <div class="field">
     <%= f.label :body %>
-    <%= f.text_area :body %>
+    <%= f.text_area :body, value: body_value %>
   </div>
   <div class="actions">
     <%= f.submit %>
