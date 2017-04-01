@@ -11,22 +11,14 @@
 <% @posts.each do |post| %>
   <%
     user = User.find(post.user_id)
-
-    # Display any edits as hover-over title text.
-    if post.created_at === post.updated_at
-      date_value = post.created_at.strftime("%Y/%m/%d at %H:%M")
-      date_title = "No edits made"
-    else
-      date_value = post.created_at.strftime("%Y/%m/%d at %H:%M") + '*'
-      date_title = "Last edited: #{post.updated_at.strftime("%Y/%m/%d %H:%M")}"
-    end
+    date_text = get_date_display_text(post)
   %>
 
   <%# Show the post. %>
   <h2 class="postTitle"><%= post.title %></h1>
   <div class="postUserAndDate">
     By <span class="userName"><%= user.name %></span>
-    on <span class="postDate" title="<%= date_title %>"><%= date_value %></span>
+    on <span class="postDate" title="<%= date_text[:title] %>"><%= date_text[:value] %></span>
   </div>
   <div class="postBody"><%= @markdown.render(post.body).html_safe %></div>
 
