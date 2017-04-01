@@ -1,0 +1,7 @@
+Hello <%= @subscriber.name %>!
+
+There's a new post up at Paul's Lovely Rails Blog.
+It's called "<%= @post.title %>"
+
+You can check it out by following this link:
+<%= Rails.application.routes.url_helpers.post_url(@post) %>
