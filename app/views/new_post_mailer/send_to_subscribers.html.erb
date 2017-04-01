@@ -9,7 +9,7 @@
       There's a new post up at Paul's Lovely Rails Blog:
     </p>
     <h2>
-      <%= @post.title %>
+      <a href="<%= Rails.application.routes.url_helpers.post_url(@post) %>"><%= @post.title %></a>
     </h2>
     <p>
       You should totally check it out!
