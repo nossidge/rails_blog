@@ -8,8 +8,8 @@ class NewPostMailer < ApplicationMailer
   # Send the mail to the sending email address, and bcc all the subscribers.
   # Upside of this approach; it will just make one email action.
   # Downside; we won't be able to personalise the email.
-  def send_to_subscribers(post)
-    @post = post
+  def send_to_subscribers(id)
+    @post = Post.find(id)
     mail(subject: "Paul's Lovely Rails Blog: #{@post.title}")
   end
 
