@@ -9,21 +9,28 @@
 <hr>
 
 <% @posts.each do |post| %>
-  <h2><%= post.title %></h2>
-  <div><%= @markdown.render(post.body).html_safe %></div>
-  <div><%= post.user_id %></div>
+  <%
+    user = User.find(post.user_id)
 
-  <% # Display any edits as hover-over title text.
+    # Display any edits as hover-over title text.
     if post.created_at === post.updated_at
-      edit_title = "No edits made"
+      date_value = post.created_at.strftime("%Y/%m/%d at %H:%M")
+      date_title = "No edits made"
     else
-      edit_title = "Last edited: #{post.updated_at.strftime("%Y/%m/%d %H:%M")}"
+      date_value = post.created_at.strftime("%Y/%m/%d at %H:%M") + '*'
+      date_title = "Last edited: #{post.updated_at.strftime("%Y/%m/%d %H:%M")}"
     end
   %>
-  <div title="<%= edit_title %>">
-    <%= post.created_at.strftime("%Y/%m/%d %H:%M") %>
-  </div>
 
+  <%# Show the post. %>
+  <h2 class="postTitle"><%= post.title %></h1>
+  <div class="postUserAndDate">
+    By <span class="userName"><%= user.name %></span>
+    on <span class="postDate" title="<%= date_title %>"><%= date_value %></span>
+  </div>
+  <div class="postBody"><%= @markdown.render(post.body).html_safe %></div>
+
+  <%# Show the action options. %>
   <div>
     <%= link_to 'Show', post %> |
     <%= link_to 'Edit', edit_post_path(post) %> |
