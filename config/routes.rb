@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   get 'pages/subscribe'
 
-  resources :subscribers
+  resources :subscribers do
+    get 'unsubscribe', on: :member
+  end
   resources :posts do
     resources :comments
   end

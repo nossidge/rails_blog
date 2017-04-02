@@ -1,0 +1,8 @@
+<h3>Unsubscribe from Paul's Lovely Rails Blog emails</h3>
+<p>We'll be sad to see you go, <%= @subscriber.name %>.</p>
+<p>By unsubscribing, you will no longer receive email notifications of new posts.</p>
+<p>The system will forget you forever!</p>
+
+<h3>Are you sure you want to unsubscribe?</h3>
+<p><%= link_to 'Yes, please stop emailing me.', @subscriber, method: :delete %></p>
+<p><%= link_to 'No, I clicked the unsub link accidentally and now I feel silly.', root_url %></p>

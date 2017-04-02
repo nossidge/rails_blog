@@ -5,3 +5,7 @@ It's called "<%= @post.title %>"
 
 You can check it out by following this link:
 <%= Rails.application.routes.url_helpers.post_url(@post) %>
+
+
+No longer want to receive these emails? Unsubscribe by following this link:
+<%= unsubscribe_subscriber_url(id: @unsubscribe_hash) %>

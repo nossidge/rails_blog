@@ -61,6 +61,13 @@ class SubscribersController < ApplicationController
     end
   end
 
+  # Unsubscribe from email notifications.
+  # This is essentially the same as destroy, but with a friendly message.
+  def unsubscribe
+    subscriber = Rails.application.message_verifier(:unsubscribe).verify(params[:id])
+    @subscriber = Subscriber.find(subscriber)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_subscriber

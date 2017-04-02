@@ -14,5 +14,10 @@
     <p>
       You should totally check it out!
     </p>
+    <p>
+      <small>
+        No longer want to receive these emails? <%= link_to "Unsubscribe", unsubscribe_subscriber_url(id: @unsubscribe_hash) %>.
+      </small>
+    </p>
   </body>
 </html>
