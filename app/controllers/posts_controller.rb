@@ -32,7 +32,9 @@ class PostsController < ApplicationController
       if @post.save
 
         # Sends email to all subscribers when new post is created.
-        NewPostMailer.send_to_subscribers(@post.id).deliver
+        Subscriber.all.each do |subscriber|
+          NewPostMailer.send_to_one_subscriber(@post.id, subscriber.id).deliver
+        end
 
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
