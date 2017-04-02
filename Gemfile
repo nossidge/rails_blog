@@ -71,3 +71,4 @@ gem 'kaminari'
 
 # Delay jobs, for asynchronous mailing.
 gem 'delayed_job_active_record'
+gem "daemons"

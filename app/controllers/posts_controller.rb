@@ -34,6 +34,9 @@ class PostsController < ApplicationController
         # Sends email to all subscribers when new post is created.
         Subscriber.all.each do |subscriber|
           NewPostMailer.send_to_one_subscriber(@post.id, subscriber.id).deliver
+
+          # ToDo: Test this on Heroku. Can't run the daemon on Windows.
+          # NewPostMailer.send_to_one_subscriber(@post.id, subscriber.id).deliver_later
         end
 
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
