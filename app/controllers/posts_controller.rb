@@ -32,12 +32,7 @@ class PostsController < ApplicationController
       if @post.save
 
         # Sends email to all subscribers when new post is created.
-        Subscriber.all.each do |subscriber|
-          NewPostMailer.send_to_one_subscriber(@post.id, subscriber.id).deliver
-
-          # ToDo: Test this on Heroku. Can't run the daemon on Windows.
-          # NewPostMailer.send_to_one_subscriber(@post.id, subscriber.id).deliver_later
-        end
+        send_new_post_mail(@post.id)
 
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
@@ -90,5 +85,15 @@ class PostsController < ApplicationController
     # Set up the markdown parser.
     def set_markdown
       @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, extensions = {})
+    end
+
+    # Sends email to all subscribers when new post is created.
+    def send_new_post_mail(post_id)
+      Subscriber.all.each do |subscriber|
+        NewPostMailer.send_to_one_subscriber(post_id, subscriber.id).deliver
+
+        # ToDo: Test async mail on Heroku. Can't run the daemon on Windows.
+        # NewPostMailer.send_to_one_subscriber(post_id, subscriber.id).deliver_later
+      end
     end
 end
