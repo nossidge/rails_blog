@@ -64,4 +64,7 @@ Rails.application.configure do
     :authentication       => "plain",
     :enable_starttls_auto => true
   }
+
+  # Add host for url_helpers
+  Rails.application.routes.default_url_options[:host] = "http://localhost:3000"
 end
