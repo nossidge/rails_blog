@@ -23,6 +23,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Subscribe me!", :class => "btn btn-primary" %>
+    <%= f.submit "Submit", :class => "btn btn-primary" %>
+    <%= link_to "Cancel", subscribers_path, class: "btn btn-danger" %>
   </div>
 <% end %>
