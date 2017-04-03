@@ -16,7 +16,7 @@
   %>
 
   <%# Show the post. %>
-  <h2 class="postTitle"><%= post.title %></h1>
+  <h2 class="postTitle"><%= link_to post.title, post %></h1>
   <div class="postUserAndDate">
     By <span class="userName"><%= user.name %></span>
     on <span class="postDate" title="<%= date_text[:title] %>"><%= date_text[:value] %></span>
