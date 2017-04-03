@@ -3,26 +3,15 @@
   <head>
     <title>RailsBlog</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <div id="wrapper">
-      <header>
-        <h1>Paul's Lovely Rails Blog</h1>
-      </header>
-      <nav id="mainNav">
-        <%= link_to "Home", root_path %>
-        <%= link_to "Users",       {:controller => 'users',       :action => 'index' } %>
-        <%= link_to "Posts",       {:controller => 'posts',       :action => 'index' } %>
-        <%= link_to "Subscribers", {:controller => 'subscribers', :action => 'index' } %>
-        <%= link_to "About",       {:controller => 'pages',       :action => 'about' } %>
-      </nav>
-      <main id="content">
-        <%= yield %>
-      </main>
+    <%= render 'layouts/header' %>
+    <div class="container">
+      <%= yield %>
+      <%= render 'layouts/footer' %>
     </div>
   </body>
 </html>

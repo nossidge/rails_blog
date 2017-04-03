@@ -1,0 +1,12 @@
+<footer class="footer">
+  <small>
+    <%= link_to "Paul's Lovely Rails Blog", root_path %>
+    by <a href="https://github.com/nossidge/">Paul Thompson</a>
+  </small>
+  <nav>
+    <ul>
+      <li><%= link_to "About", {:controller => 'pages', :action => 'about'} %></li>
+      <li><%= mail_to 'pauldpthompson@gmail.com', "Contact" %></li>
+    </ul>
+  </nav>
+</footer>
