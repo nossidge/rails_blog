@@ -1,5 +1,9 @@
 <h1>New Subscriber</h1>
 
+<h2>Never miss a post!</h2>
+<p>Fill out this form, and you will get sent an email informing you of every new post!</p>
+<br>
+
 <%= render 'form', subscriber: @subscriber %>
 
-<%= link_to 'Back', subscribers_path %>
+<%= link_to "Don't.", subscribers_path, class: "btn btn-danger" %>
