@@ -76,11 +76,11 @@
   <%# Default values are okay to be nil. %>
   <div class="field">
     <%= f.label :name %>
-    <%= f.text_field :name, value: name_value %>
+    <%= f.text_field :name, :class => "form-control", value: name_value %>
   </div>
   <div class="field">
     <%= f.label :body %>
-    <%= f.text_area :body, value: body_value %>
+    <%= f.text_area :body, :class => "form-control", value: body_value %>
   </div>
   <div class="actions">
     <%= f.submit %>
