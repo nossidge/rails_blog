@@ -1,0 +1,245 @@
+
+################################################################################
+
+https://stackoverflow.com/questions/7086654/installing-postgres-on-windows-for-use-with-ruby-on-rails
+
+createdb -U postgres db_post
+
+################################################################################
+
+https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres
+
+su - postgres
+
+psql;
+
+create role post_web_dev_challenge with db_post login password 'Unique2ME';
+
+rails new post_web_dev_challenge --database=postgresql
+
+rake db:setup
+
+rails server
+
+http://localhost:3000/
+
+rails g scaffold Post title:string body:text
+
+rake db:migrate
+
+http://localhost:3000/posts
+
+################################################################################
+
+https://scotch.io/tutorials/build-a-blog-with-ruby-on-rails-part-1
+
+rails g scaffold Post title:string body:text
+
+rails g model Post title:string body:text
+rails g controller Posts
+
+rails g scaffold Comment name:string body:text post_id:integer
+rails g model Comment name:string body:text article:references
+
+################################################################################
+
+Rails Conventions – Singular or Plural?
+http://alexander-clark.com/blog/rails-conventions-singular-or-plural/
+
+################################################################################
+
+VIDEOS
+
+Derek Banas - RoR Tutorial playlist (plus SASS)
+https://www.youtube.com/watch?v=wz3kElLbEHE&index=4&list=PLGLfVvz_LVvSngZQwrhYXlPnJf1zYqghI
+
+Your First Rails Application [ Ruby on Rails from the ground up - 4/5 ]
+https://www.youtube.com/watch?v=WIozWpjEgrE
+
+Heroku setup
+https://www.youtube.com/watch?v=5kVtmnZNC8w
+
+Authentication with Ruby on Rails 4.2
+https://www.youtube.com/watch?v=zQJtlvlNunw
+
+################################################################################
+
+https://www.railstutorial.org/book/user_microposts
+
+################################################################################
+
+# Roadmap / Stuff To Do
+
+setup postgres locally
+
+make database
+
+add roles
+
+simple blog system first
+
+rails new rails_blog --database=postgresql
+rails g scaffold User name:string email:string password:digest
+rails g scaffold Post title:string body:text user_id:integer
+rails g scaffold Comment name:string body:text post_id:integer
+rails g scaffold Subscriber name:string email:string
+rails g controller pages home about subscribe
+rails db:migrate
+
+is 'home' page necessary? default to posts#index?
+
+https://launchschool.com/blog/handling-emails-in-rails
+rails g mailer NewPostMailer
+
+add subscribers link
+
+hook to send out email with post
+
+unsubscribe link on email
+
+Asynchronous ActionMailer
+https://dockyard.com/blog/ruby/2012/06/26/rails-4-sneak-peek-async-actionmailer
+ -- THIS DOESN'T BLOODY WORK!
+
+add markdown capabilities
+
+pagination
+
+login
+
+hide details if not logged in
+
+number of comments on post index
+
+better looking css just for divs containing markdown
+
+"after the jump" - truncate the post somehow in index
+
+make it look pretty
+
+push to github
+
+push to heroku
+
+users edit and password edit should be different pages
+
+################################################################################
+
+TESTING!??!
+http://guides.rubyonrails.org/testing.html
+There's so much I need to learn....
+
+################################################################################
+
+To make SEO friendly url, in models:
+  class User < ApplicationRecord
+    def to_param
+      [id, name.parameterize].join("-")
+    end
+  end
+As long as ID is first, followed by non-numeric, it should work.
+(because it uses #to_i to get the ID)
+
+To add a "delete" link on a show.html.erb page
+<%= link_to 'Delete', user_path(@user), method: :delete, data: { confirm: "Are you sure you want to delete this user?"} %> |
+
+In "application.html.erb"
+  <nav>
+    <%= link_to "Home", root_path %> |
+    <%= link_to "Users", users_url %> |
+    <%= link_to "About", pages_about_url %> |
+    <%= link_to "Subscribe", pages_subscribe_url %>
+  </nav>
+
+in Gemfile:
+  # Roll back to version 1.8.0 to fix Windows cscript issue
+  # See https://stackoverflow.com/a/30059256/139299
+  gem 'coffee-script-source', '1.8.0'
+
+Hide 'notice' element if not necessary.
+Then we can style its background correctly.
+  <% if notice %>
+    <p id="notice"><%= notice %></p>
+  <% end %>
+
+https://github.com/laserlemon/figaro
+Using Figaro:
+  figaro install
+Then in application.yml:
+  postgres_password: 'h?d73rJ*PFp^_!2w' (or whatever)
+  gmail_username: 'nossidgetest@gmail.com'
+  gmail_sendname: 'Nossidge Test Mailer Name <nossidgetest@gmail.com>'
+  gmail_password: 'h?d73rJ*PFp^_!2w' (or whatever)
+
+gmail mailer settings
+in /config/environments/development.rb & production.rb
+  # SMTP settings for gmail
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'gmail.com',
+    :user_name            => ENV['gmail_username'],
+    :password             => ENV['gmail_password'],
+    :authentication       => "plain",
+    :enable_starttls_auto => true
+  }
+
+# In /app/mailers/example_mailer.rb
+# Update the 'from' argument
+class ExampleMailer < ApplicationMailer
+  def sample_email(user)
+    @user = user
+    mail(from: ENV['gmail_sendname'],
+      to: @user.email,
+      subject: 'Sample Email')
+  end
+end
+
+# For Markdown editor:
+https://simplemde.com/
+https://github.com/olejrosendahl/simplemde-rails/issues/1
+https://github.com/NextStepWebs/simplemde-markdown-editor#using-a-specific-textarea
+Add to ./app/assets/javascripts/application.js
+//= require simplemde.min.js
+(Same with the .css file)
+
+https://github.com/kossnocorp/jquery.turbolinks
+For displaying markdown, in show and index:
+at the top:
+  <% markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, extensions = {}) %>
+in the body:
+  <p>
+    <strong>Body:</strong>
+    <%= markdown.render(@post.body).html_safe %>
+  </p>
+Or maybe put 'markdown' var in controller as '@markdown'?
+
+ERROR: bcrypt-3.1.11
+https://stackoverflow.com/questions/33588735/loaderror-cannot-load-such-file-bcrypt-ext-on-windows-2008-x64-server
+
+################################################################################
+
+# delay jobs (for asynchronous mailer)
+http://blog.andolasoft.com/2013/04/4-simple-steps-to-implement-delayed-job-in-rails.html
+
+RAILS_ENV=production bin/delayed_job start
+RAILS_ENV=production bin/delayed_job stop
+
+RAILS_ENV=development bin/delayed_job start
+RAILS_ENV=development bin/delayed_job stop
+
+################################################################################
+
+
+# Add unsub link:
+https://stackoverflow.com/questions/34408524/rails-email-with-unsubscribe-link
+https://stackoverflow.com/a/34779543/139299
+
+
+
+
+
+
+
+
