@@ -72,3 +72,6 @@ gem 'kaminari'
 # Delay jobs, for asynchronous mailing.
 gem 'delayed_job_active_record'
 gem "daemons"
+
+# Bootstrap, for prettier pages.
+gem 'bootstrap-sass'
