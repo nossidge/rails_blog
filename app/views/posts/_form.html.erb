@@ -6,7 +6,7 @@ $( document ).ready( function() {
 })
 </script>
 
-<%= form_for(post) do |f| %>
+<%= form_for(post, :html => { :class => "form-inline" }) do |f| %>
   <% if post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -21,20 +21,21 @@ $( document ).ready( function() {
 
   <div class="field">
     <%= f.label :title %>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, :class => "form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :body %>
-    <%= f.text_area :body, :id => "field_body" %>
+    <%= f.text_area :body, :class => "form-control", :id => "field_body" %>
   </div>
 
   <div class="field">
     <%= f.label :user_id %>
-    <%= f.number_field :user_id %>
+    <%= f.number_field :user_id, :class => "form-control" %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Submit", :class => "btn btn-primary" %>
+    <%= link_to "Cancel", posts_path, class: "btn btn-danger" %>
   </div>
 <% end %>
