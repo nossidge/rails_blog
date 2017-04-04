@@ -43,6 +43,10 @@ gem 'bcrypt', '~> 3.1.7'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+
+  # Rspec and capybara, for testing
+  gem 'capybara'
+  gem "rspec-rails"
 end
 
 group :development do
