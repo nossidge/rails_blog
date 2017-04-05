@@ -13,6 +13,7 @@ describe Subscriber do
   describe "attributes" do
     subject { @subscriber }
     it { is_expected.to be_valid }
+    it { is_expected.to be_an_instance_of Subscriber }
     it { is_expected.to respond_to(:name) }
     it { is_expected.to respond_to(:email) }
   end
@@ -25,12 +26,10 @@ describe Subscriber do
       @subscriber.name = ""
       expect(@subscriber).to_not be_valid
     end
-
   end
 
 
   describe "email validation" do
-
     it "should require an email address" do
       @subscriber.email = ""
       expect(@subscriber).to_not be_valid
@@ -60,7 +59,6 @@ describe Subscriber do
         expect(@subscriber).to_not be_valid
       end
     end
-
   end
 
 end

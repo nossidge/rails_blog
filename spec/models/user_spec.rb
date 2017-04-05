@@ -15,13 +15,15 @@ describe User do
   end
 
 
-  describe "attributes" do
+  describe "object instance" do
     subject { @user }
     it { is_expected.to be_valid }
+    it { is_expected.to be_an_instance_of User }
     it { is_expected.to respond_to(:name) }
     it { is_expected.to respond_to(:email) }
     it { is_expected.to respond_to(:password) }
     it { is_expected.to respond_to(:password_confirmation) }
+    it { is_expected.to respond_to(:password_digest) }
   end
 
 
@@ -32,12 +34,10 @@ describe User do
       @user.name = ""
       expect(@user).to_not be_valid
     end
-
   end
 
 
   describe "email validation" do
-
     it "should require an email address" do
       @user.email = ""
       expect(@user).to_not be_valid
@@ -67,12 +67,10 @@ describe User do
         expect(@user).to_not be_valid
       end
     end
-
   end
 
 
   describe "password validation" do
-
     it "should require a password" do
       @user.password = ""
       @user.password_confirmation = ""
@@ -90,7 +88,6 @@ describe User do
       @user.password_confirmation = short
       expect(@user).to_not be_valid
     end
-
   end
 
 end
