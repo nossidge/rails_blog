@@ -7,7 +7,7 @@
 <%# Show the post. %>
 <h1 class="postTitle"><%= @post.title %></h1>
 <div class="postUserAndDate">
-  By <span class="userName"><%= @user.name %></span>
+  By <span class="userName"><%= @post.user.name %></span>
   on <span class="postDate" title="<%= date_text[:title] %>"><%= date_text[:value] %></span>
 </div>
 <div class="postBody"><%= @markdown.render(@post.body).html_safe %></div>

@@ -10,15 +10,12 @@
 <hr>
 
 <% @posts.each do |post| %>
-  <%
-    user = User.find(post.user_id)
-    date_text = get_date_display_text(post)
-  %>
+  <% date_text = get_date_display_text(post) %>
 
   <%# Show the post. %>
   <h2 class="postTitle"><%= link_to post.title, post %></h1>
   <div class="postUserAndDate">
-    By <span class="userName"><%= user.name %></span>
+    By <span class="userName"><%= post.user.name %></span>
     on <span class="postDate" title="<%= date_text[:title] %>"><%= date_text[:value] %></span>
   </div>
   <div class="postBody"><%= @markdown.render(post.body).html_safe %></div>
