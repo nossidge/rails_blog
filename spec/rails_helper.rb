@@ -60,4 +60,7 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include Capybara::DSL
+
+  Capybara.javascript_driver = :rack_test
+  Capybara.current_driver = Capybara.javascript_driver
 end
